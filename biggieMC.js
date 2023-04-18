@@ -5,7 +5,7 @@ let y = 100;
 //skis
 fill(255, 255, 300);
 strokeWeight(5);
-line(x + 10, y + 20, x + 80, y + 60);
+line(x + 10, y + 20, x + 80, y + 62);
 line(x + 17, y + 10, x + 85, y + 50);
 
 //legs
@@ -13,7 +13,7 @@ strokeWeight(3);
 noFill();
 beginShape();
 vertex(x + 40, x + 25);
-bezierVertex(x + 40, y + 25, x + 50, y + 20, x + 45, y - 23);
+bezierVertex(x + 50, y + 25, x + 50, y + 15, x + 45, y - 23);
 endShape();
 
 strokeWeight(3);

@@ -5,23 +5,9 @@ let y = 100;
 //skis
 fill(255, 255, 300);
 strokeWeight(5);
-line(x + 80, y + 20, x +5, y + 60);
-line(x + 70, y + 10, x - 5, y + 50);
+line(x + 35, y, x + 35, y + 45);
+line(x + 45, y, x + 45, y + 45);
 
-//legs
-strokeWeight(3);
-noFill();
-beginShape();
-vertex(x +53, x + 32);
-bezierVertex(x + 45, y + 25, x + 50, y + 15, x + 45, y - 23);
-endShape();
-
-strokeWeight(3);
-noFill();
-beginShape();
-vertex(x + 40, x + 25);
-bezierVertex(x + 30, y + 25, x + 35, y, x + 30, y);
-endShape();
 
 //arms
 
@@ -53,7 +39,7 @@ strokeWeight(2);
 line(x + 73, y - 25, x + 87, y + 20);
 fill(255, 255, 300);
 strokeWeight(2);
-line(x + 90, y + 15, x + 84, y + 19);
+line(x + 90, y + 15, x + 82, y + 19);
 
 //Body
 noStroke();

@@ -1,3 +1,14 @@
+function setup() {
+  createCanvas(700, 2000);
+  background(160, 200, 255);
+  rect(100, 0, 400, 4000);
+}
+
+let skiierX = 120;
+let skiierY = 120;
+let treeX = 300;
+let treeY = 300;
+
 background(160, 200, 255);
 rect(100, 0, 400, 4000);
 
@@ -16,14 +27,15 @@ function avalanche(avaX, avaY) {
   ellipse(360, 50, 100, 100);
   ellipse(400, 50, 90, 90);
   ellipse(450, 40, 120, 120);
-  ellipse(500, 600, 120, 120);
+  ellipse(500, 60, 120, 120);
   ellipse(540, 40, 80, 80);
   ellipse(560, 45, 80, 90);
   pop();
 }
 
-function skiier(skiierX, skiierY) {
+function skiier(x = 0, y = 0) {
   translate(skiierX, skiierY);
+  scale(0.3);
   push();
   //skis
   fill(255, 255, 300);
@@ -83,12 +95,23 @@ function skiier(skiierX, skiierY) {
   fill(255, 255, 255);
   ellipse(x + 40, y - 38, 15, 15);
   pop();
+}
 
-  let skiierX = 100;
-  let skiierY = 100;
+function trees(x = 100, y = 100) {
+  translate(treeX, treeY);
+  push();
+  fill(70, 31, 0);
+  rect(x, y, 20, 30);
+  fill(20, 51, 6);
+  noStroke(0);
+  triangle(x - 10, y + 15, x + 30, y + 15, x + 10, y - 50);
+  triangle(x - 10, y + 0, x + 30, y, x + 10, y - 50);
+  triangle(x - 5, y - 20, x + 25, y - 20, x + 10, y - 50);
+  pop();
 }
 
 function draw() {
   avalanche();
   skiier();
+  trees();
 }

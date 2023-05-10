@@ -1,6 +1,6 @@
 background(255, 255, 255);
-let x = 100;
-let y = 100;
+let x = 200;
+let y = 200;
 
 //skis
 fill(255, 255, 300);

@@ -4,7 +4,7 @@ body {
 }
 
 .skiForYourLife-background {
-  background-image: url("youdidit.gif");
+  background-image: url("./Images/youdidit.gif");
   background-size: cover;
   background-position: center;
   height: 100vh;

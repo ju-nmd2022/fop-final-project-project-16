@@ -6,7 +6,7 @@ function init() {
   const ch = (canvas.height = window.innerHeight);
 
   let direction = 0;
-  let speed = 1;
+  let speed = 2;
   let skierX = cw / 2;
   let obstacles = [];
   let game = false;
@@ -93,7 +93,7 @@ function init() {
     // Score
     ctx.textAlign = "start";
     ctx.font = "14px Helvetica";
-    ctx.fillText(`Score: ${Math.floor((totalY - 1) / 4)} meters`, 10, 25);
+    ctx.fillText(`Score: ${Math.floor((totalY - 1) / 4)} feet`, 10, 25);
 
     // Draw Skier
     const skier = new Path2D();
@@ -154,10 +154,10 @@ function init() {
 
         ctx.fillStyle = "#9B000F";
         ctx.font = "16px Helvetica";
-        ctx.fillText(`YOU CRASHED!!!`, 650, 300);
+        ctx.fillText(`YOU CRASHED!!!`, 10, 60);
         ctx.fillStyle = "#111213";
         ctx.fillText(
-          `You traveled ${Math.floor((totalY - 1) / 4)} meters.`,
+          `You traveled ${Math.floor((totalY - 1) / 4)} feet.`,
           10,
           80
         );
@@ -171,9 +171,9 @@ function init() {
     const keycode = e.keyCode;
 
     if (keys) {
-      if (key === "ArrowLeft" && direction > -3) {
+      if (key === "ArrowLeft" && direction > -20) {
         direction--;
-      } else if (key === "ArrowRight" && direction < 3) {
+      } else if (key === "ArrowRight" && direction < 20) {
         direction++;
       }
       // else if (key === "ArrowDown"){
@@ -196,7 +196,7 @@ function init() {
   function startGame() {
     if (!game) {
       console.log("game on!");
-      obstacleInterval = setInterval(createObstacle, 10);
+      obstacleInterval = setInterval(createObstacle, 50);
       gameInterval = setInterval(draw, 1);
     }
   }

@@ -82,11 +82,11 @@ function init() {
       ctx.textAlign = "center";
       ctx.fillStyle = "#111213";
       ctx.font = "40px Helvetica";
-      ctx.fillText(`SkiFree!`, cw / 2, 60);
+      ctx.fillText(`Ski for your Life!`, cw / 2, 60);
       ctx.font = "20px Helvetica";
-      ctx.fillText(`Press an arrow key to start`, cw / 2, 100);
+      ctx.fillText(`Press any key to start!`, cw / 2, 100);
       ctx.font = "16px Helvetica";
-      ctx.fillText(`Use ← and → to steer`, cw / 2, 124);
+      ctx.fillText(`Use ← and → to control your skier`, cw / 2, 124);
       ctx.fillStyle = "#E8E9EE";
     }
 
@@ -157,7 +157,7 @@ function init() {
         ctx.fillText(`YOU CRASHED!!!`, 10, 60);
         ctx.fillStyle = "#111213";
         ctx.fillText(
-          `You traveled ${Math.floor((totalY - 1) / 4)} feet.`,
+          `You traveled ${Math.floor((totalY - 1) / 4)} meters.`,
           10,
           80
         );

@@ -11,12 +11,12 @@ function init() {
   let theGame = false;
   let keys = true;
   let entireY = 0;
-
+  //Draw the whole canvas, and start with Ski for your life!
   function draw() {
     context.clearRect(0, 0, cw, ch);
     entireY++;
 
-    contx.fillStyle = "#9B000F";
+    context.fillStyle = "#9B000F";
 
     if (entireY < 10) {
       ctx.textAlign = "center";

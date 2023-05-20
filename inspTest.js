@@ -97,7 +97,7 @@ function init() {
     ctx.fillText(`Score: ${Math.floor((totalY - 1) / 4)} feet`, 10, 25);
 
     // Draw Skier
-    ctx.fillStyle = "#cb14db";
+    ctx.fillStyle = "#624D6E";
     const skier = new Path2D();
     skier.moveTo(skierX - 4 - direction * 2, ch / 4);
     skier.lineTo(skierX - 1 - direction * 2, ch / 4);
@@ -108,7 +108,6 @@ function init() {
     skier.lineTo(skierX + 1 - direction * 2, ch / 4);
     skier.lineTo(skierX + 1 + direction * 2, ch / 4 + 16);
     skier.lineTo(skierX + 4 + direction * 2, ch / 4 + 16);
-    skier.arcTo();
     skier.closePath();
     ctx.fill(skier);
 

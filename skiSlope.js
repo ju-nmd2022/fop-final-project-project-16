@@ -30,7 +30,7 @@ function init() {
     draw();
   }
 
-  // When pressing down random key, it starts handleKey function.
+  // When pressing down any key, it starts handleKey function.
   //if you press left or right, it's starts in a specifc direction.
   //otherwise it keeps going and starts the game through boolean true + starGame
   function handleKey(e) {

@@ -166,6 +166,10 @@ function init() {
     });
   }
 
+  function speedCharacter() {
+    speed = 20;
+  }
+
   function handleKey(e) {
     const key = e.key;
     const keycode = e.keyCode;

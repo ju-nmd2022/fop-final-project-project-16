@@ -1,18 +1,20 @@
 window.onload = init;
 function init() {
-  const canvas = document.getElementById("linkhtml");
-  const cw = (canvas.width = window.innerWidth);
-  const ch = (canvas.height = window.innerHeight);
-  const ctx = canvas.getContext("2d");
+  const canvas = document.getElementById("linktohtml");
+  const canwid = (canvas.width = window.innerWidth);
+  const canhei = (canvas.height = window.innerHeight);
+  const contx = canvas.getContext("2d");
 
-  let speed = 2;
-  let direction = 0;
-  let game = false;
+  let speedOfSkier = 2;
+  let directionOfSkier = 0;
+  let obstaclesOfSlope = [];
+  let theGame = false;
   let keys = true;
+  let entireY = 0;
 
   function draw() {
-    ctx.clearRect(0, 0, cw, ch);
-    totalY++;
+    contx.clearRect(0, 0, cw, ch);
+    entireY++;
 
     ctx.fillStyle = "#9B000F";
 

@@ -78,7 +78,7 @@ function init() {
 
     ctx.fillStyle = "#9B000F";
 
-    if (totalY < 10) {
+    if (totalY < 25) {
       ctx.textAlign = "center";
       ctx.fillStyle = "#111213";
       ctx.font = "40px Helvetica";
@@ -88,6 +88,7 @@ function init() {
       ctx.font = "16px Helvetica";
       ctx.fillText(`Use ← and → to control your skier`, cw / 2, 124);
       ctx.fillStyle = "#E8E9EE";
+      ctx.document.getElementById("bski");
     }
 
     // Score
@@ -164,10 +165,6 @@ function init() {
         ctx.fillText(`Press space to restart.`, 10, 100);
       }
     });
-  }
-
-  function speedCharacter() {
-    speed = 20;
   }
 
   function handleKey(e) {

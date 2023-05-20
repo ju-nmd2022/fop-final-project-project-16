@@ -3,7 +3,7 @@ function init() {
   const canvas = document.getElementById("linktohtml");
   const canwid = (canvas.width = window.innerWidth);
   const canhei = (canvas.height = window.innerHeight);
-  const contx = canvas.getContext("2d");
+  const context = canvas.getContext("2d");
 
   let speedOfSkier = 2;
   let directionOfSkier = 0;
@@ -13,12 +13,12 @@ function init() {
   let entireY = 0;
 
   function draw() {
-    contx.clearRect(0, 0, cw, ch);
+    context.clearRect(0, 0, cw, ch);
     entireY++;
 
-    ctx.fillStyle = "#9B000F";
+    contx.fillStyle = "#9B000F";
 
-    if (totalY < 10) {
+    if (entireY < 10) {
       ctx.textAlign = "center";
       ctx.fillStyle = "#111213";
       ctx.font = "40px Helvetica";

@@ -123,12 +123,20 @@ function init() {
     if (totalY < 25) {
       ctx.textAlign = "center";
       ctx.fillStyle = "#111213";
-      ctx.font = "40px Helvetica";
+      ctx.font = "40px HelvetICA";
       ctx.fillText(`Ski for your Life!`, cw / 2, 60);
       ctx.font = "20px Helvetica";
-      ctx.fillText(`Press any key to start!`, cw / 2, 100);
+      ctx.fillText(
+        `Press any key to start skiing down the slope!`,
+        cw / 2,
+        100
+      );
       ctx.font = "16px Helvetica";
-      ctx.fillText(`Use ← and → to control your skier`, cw / 2, 124);
+      ctx.fillText(
+        `Use the left or right arrowkey to control the skier`,
+        cw / 2,
+        124
+      );
       ctx.fillStyle = "#E8E9EE";
     }
 

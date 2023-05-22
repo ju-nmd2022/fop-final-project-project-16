@@ -34,15 +34,21 @@ function init() {
       mound.moveTo(x, y);
       mound.quadraticCurveTo(x + w / 2, y - h, x + w, y);
       ctx.stroke(mound);
-    } else {
-      console.error("Drawing error");
+    } else if (type === "mound1") {
+      ctx.strokeStyle = "#0DD43E";
+      ctx.lineWidth = 5;
+      const mound1 = new Path2D();
+      mound1.moveTo(x, y);
+      mound1.quadraticCurveTo(x + w / 2, y - h, x + w, y);
+      ctx.stroke(mound1);
     }
   }
 
   // Create a new obstacle
   function createObstacle() {
-    const obstacleTypes = ["tree", "mound"];
-    const type = obstacleTypes[Math.round(Math.random())];
+    const obstacleTypes = ["tree", "mound", "mound1"];
+    const typeIndex = Math.floor(Math.random() * obstacleTypes.length);
+    const type = obstacleTypes[typeIndex];
 
     if (type === "tree") {
       const treeHeight = Math.floor(Math.random() * (40 - 20 + 1)) + 20;
@@ -61,6 +67,15 @@ function init() {
         y: ch,
         height: moundWidth / 2,
         width: moundWidth,
+      });
+    } else if (type === "mound1") {
+      const mound1Width = Math.floor(Math.random() * (20 - 10 + 1)) + 10;
+      obstacles.push({
+        type: "mound1",
+        x: Math.round(cw * Math.random()),
+        y: ch,
+        height: mound1Width / 2,
+        width: mound1Width,
       });
     } else {
       console.error("Creation error");
@@ -96,13 +111,12 @@ function init() {
         124
       );
       ctx.fillStyle = "#E8E9EE";
-      ctx.document.getElementById("bski");
     }
 
     // Score
     ctx.textAlign = "start";
     ctx.font = "14px Helvetica";
-    ctx.fillText(`Score: ${Math.floor((totalY - 1) / 4)} feet`, 10, 25);
+    ctx.fillText(`Score: ${Math.floor((totalY - 1) / 4)} points`, 10, 25);
 
     // Draw Skier
     ctx.fillStyle = "#624D6E";

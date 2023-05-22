@@ -16,7 +16,7 @@ function init() {
   // Draw an obstacle
   function drawObstacle(ctx, type, x, y, h, w) {
     if (type === "tree") {
-      ctx.fillStyle = "#624D6E";
+      ctx.fillStyle = "#FF69B4";
       const tree = new Path2D();
       tree.moveTo(x + w / 2, y);
       tree.lineTo(x, y + h * 0.9);
@@ -29,7 +29,7 @@ function init() {
       ctx.fill(tree);
     } else if (type === "mound") {
       ctx.strokeStyle = "#868999";
-      ctx.lineWidth = 1;
+      ctx.lineWidth = 2;
       const mound = new Path2D();
       mound.moveTo(x, y);
       mound.quadraticCurveTo(x + w / 2, y - h, x + w, y);
@@ -95,9 +95,8 @@ function init() {
 
     if (totalY < 25) {
       ctx.textAlign = "center";
-      ctx.fillStyle = "#111213";
-      ctx.font = "40px HelvetICA";
-      ctx.fillText(`Ski for your Life!`, cw / 2, 60);
+      ctx.font = "50px Helvetica";
+      ctx.fillText(`Ready to ski for your Life?`, cw / 2, 60);
       ctx.font = "20px Helvetica";
       ctx.fillText(
         `Press any key to start skiing down the slope!`,
@@ -178,7 +177,7 @@ function init() {
 
         ctx.fillStyle = "#9B000F";
         ctx.font = "16px Helvetica";
-        ctx.fillText(`YOU CRASHED!!!`, 10, 60);
+        ctx.fillText(`Oh no, you CRASHED...Better luck next time!!`, 10, 60);
         ctx.fillStyle = "#111213";
         ctx.fillText(
           `You traveled ${Math.floor((totalY - 1) / 4)} meters.`,

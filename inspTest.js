@@ -89,7 +89,7 @@ function init() {
     const type = obstacleTypes[typeIndex];
 
     if (type === "hotshot") {
-      const hotshotWidth = Math.floor(Math.random() * (20 - 10 + 1)) + 10;
+      const hotshotWidth = 30;
       obstacles.push({
         type: "hotshot",
         x: Math.round(cw * Math.random()),
@@ -98,7 +98,7 @@ function init() {
         width: hotshotWidth,
       });
     } else if (type === "kanelbulle") {
-      const kanelbulleWidth = Math.floor(Math.random() * (20 - 10 + 1)) + 10;
+      const kanelbulleWidth = 30;
       obstacles.push({
         type: "kanelbulle",
         x: Math.round(cw * Math.random()),
@@ -142,7 +142,7 @@ function init() {
     // Score
     ctx.textAlign = "start";
     ctx.font = "14px Helvetica";
-    ctx.fillText(`Score: ${Math.floor((totalY - 1) / 4)} points`, 10, 25);
+    ctx.fillText(`Score: ${Math.floor((totalY - 1) / 4)} points.`, 10, 25);
 
     // Draw Skier
     ctx.fillStyle = "#624D6E";
@@ -203,14 +203,14 @@ function init() {
 
         ctx.fillStyle = "#9B000F";
         ctx.font = "16px Helvetica";
-        ctx.fillText(`Oh no, you CRASHED...Better luck next time!!`, 10, 60);
+        ctx.fillText(`Ouch, you into a tree! Better luck next time!!`, 10, 60);
         ctx.fillStyle = "#111213";
         ctx.fillText(
-          `You traveled ${Math.floor((totalY - 1) / 4)} meters.`,
+          `You gained ${Math.floor((totalY - 1) / 4)} points.`,
           10,
           80
         );
-        ctx.fillText(`Press space to restart.`, 10, 100);
+        ctx.fillText(`Please press [SPACE] to restart!.`, 10, 100);
       }
       //If hit kanelbulle, it goes slow
       if (

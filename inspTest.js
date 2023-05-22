@@ -34,19 +34,26 @@ function init() {
       mound.moveTo(x, y);
       mound.quadraticCurveTo(x + w / 2, y - h, x + w, y);
       ctx.stroke(mound);
-    } else if (type === "mound1") {
+    } else if (type === "hotshot") {
+      ctx.strokeStyle = "#000000";
+      ctx.lineWidth = 5;
+      const hotshot = new Path2D();
+      hotshot.moveTo(x, y);
+      hotshot.quadraticCurveTo(x + w / 2, y - h, x + w, y);
+      ctx.stroke(hotshot);
+    } else if (type === "kanelbulle") {
       ctx.strokeStyle = "#0DD43E";
       ctx.lineWidth = 5;
-      const mound1 = new Path2D();
-      mound1.moveTo(x, y);
-      mound1.quadraticCurveTo(x + w / 2, y - h, x + w, y);
-      ctx.stroke(mound1);
+      const kanelbulle = new Path2D();
+      kanelbulle.moveTo(x, y);
+      kanelbulle.quadraticCurveTo(x + w / 2, y - h, x + w, y);
+      ctx.stroke(kanelbulle);
     }
   }
 
   // Create a new obstacle
   function createObstacle() {
-    const obstacleTypes = ["tree", "mound", "mound1"];
+    const obstacleTypes = ["tree", "mound", "hotshot", "kanelbulle"];
     const typeIndex = Math.floor(Math.random() * obstacleTypes.length);
     const type = obstacleTypes[typeIndex];
 
@@ -68,17 +75,37 @@ function init() {
         height: moundWidth / 2,
         width: moundWidth,
       });
-    } else if (type === "mound1") {
-      const mound1Width = Math.floor(Math.random() * (20 - 10 + 1)) + 10;
+    }
+
+    if (obstacles.length > 0 && obstacles[0].y < 0 - obstacles[0].height) {
+      obstacles.shift();
+    }
+  }
+
+  // Create a new obstacle kanelbulle hotshot
+  function createKanelHotshotObstacle() {
+    const obstacleTypes = ["hotshot", "kanelbulle"];
+    const typeIndex = Math.floor(Math.random() * obstacleTypes.length);
+    const type = obstacleTypes[typeIndex];
+
+    if (type === "hotshot") {
+      const hotshotWidth = Math.floor(Math.random() * (20 - 10 + 1)) + 10;
       obstacles.push({
-        type: "mound1",
+        type: "hotshot",
         x: Math.round(cw * Math.random()),
         y: ch,
-        height: mound1Width / 2,
-        width: mound1Width,
+        height: hotshotWidth / 2,
+        width: hotshotWidth,
       });
-    } else {
-      console.error("Creation error");
+    } else if (type === "kanelbulle") {
+      const kanelbulleWidth = Math.floor(Math.random() * (20 - 10 + 1)) + 10;
+      obstacles.push({
+        type: "kanelbulle",
+        x: Math.round(cw * Math.random()),
+        y: ch,
+        height: kanelbulleWidth / 2,
+        width: kanelbulleWidth,
+      });
     }
 
     if (obstacles.length > 0 && obstacles[0].y < 0 - obstacles[0].height) {
@@ -164,7 +191,6 @@ function init() {
         obstacle.x + obstacle.width / 2 > skierX &&
         obstacle.type == "tree"
       ) {
-        console.log("crash!");
         stopGame();
         game = false;
 
@@ -179,6 +205,26 @@ function init() {
         );
         ctx.fillText(`Press space to restart.`, 10, 100);
       }
+      //If hit kanelbulle, it goes slow
+      if (
+        obstacle.y + obstacle.height > ch / 4 - 16 &&
+        obstacle.y < ch / 4 &&
+        obstacle.x - obstacle.width / 2 < skierX &&
+        obstacle.x + obstacle.width / 2 > skierX &&
+        obstacle.type == "kanelbulle"
+      ) {
+        onHitSlow();
+      }
+      //If hit hotshot, you go swooosh
+      if (
+        obstacle.y + obstacle.height > ch / 4 - 16 &&
+        obstacle.y < ch / 4 &&
+        obstacle.x - obstacle.width / 2 < skierX &&
+        obstacle.x + obstacle.width / 2 > skierX &&
+        obstacle.type == "hotshot"
+      ) {
+        onHitSpeed();
+      }
     });
   }
 
@@ -192,11 +238,6 @@ function init() {
       } else if (key === "ArrowRight" && direction < 20) {
         direction++;
       }
-      // else if (key === "ArrowDown"){
-      //   speed++;
-      // }else if (key === "UpDown"){
-      //   speed--;
-      // };
 
       if (key === "ArrowLeft" || "ArrowRight" || "ArrowUp" || "ArrowDown") {
         startGame();
@@ -212,11 +253,33 @@ function init() {
   function startGame() {
     if (!game) {
       console.log("game on!");
-      obstacleInterval = setInterval(createObstacle, 50);
+      obstacleInterval = setInterval(createObstacle, 20);
+      obstacleInterval = setInterval(createKanelHotshotObstacle, 200);
       gameInterval = setInterval(draw, 1);
     }
   }
 
+  //Lower speed when hit kanelbulle
+  function onHitSlow() {
+    decreasedSpeed();
+  }
+  function decreasedSpeed() {
+    setTimeout(function () {
+      speed = 2;
+    }, 1000);
+    speed = 0.5;
+  }
+
+  //Higher speed when hit Hotshot
+  function onHitSpeed() {
+    speedItUp();
+  }
+  function speedItUp() {
+    setTimeout(function () {
+      speed = 2;
+    }, 1000);
+    speed = 4;
+  }
   function stopGame() {
     if (game) {
       clearInterval(obstacleInterval);

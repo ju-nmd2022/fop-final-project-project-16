@@ -187,25 +187,31 @@ function init() {
     }
 
     // Score
-    context.textAlign = "start";
-    context.font = "18px Helvetica";
-    context.fillText(`Score: ${Math.floor((entireY - 1) / 4)} points.`, 10, 25);
-
-    // Draw Skier
-    context.strokeStyle = "#868999";
-    const skiblade = new Path2D();
-    skiblade.moveTo(skiBladesX - 4 - directionOfSkier * 2, canhei / 4);
-    skiblade.lineTo(skiBladesX - 1 - directionOfSkier * 2, canhei / 4);
-    skiblade.lineTo(skiBladesX - 1 + directionOfSkier * 2, canhei / 4 + 16);
-    skiblade.lineTo(skiBladesX - 4 + directionOfSkier * 2, canhei / 4 + 16);
-    skiblade.closePath();
-    skiblade.moveTo(skiBladesX + 4 - directionOfSkier * 2, canhei / 4);
-    skiblade.lineTo(skiBladesX + 1 - directionOfSkier * 2, canhei / 4);
-    skiblade.lineTo(skiBladesX + 1 + directionOfSkier * 2, canhei / 4 + 16);
-    skiblade.lineTo(skiBladesX + 4 + directionOfSkier * 2, canhei / 4 + 16);
-    skiblade.closePath();
-    context.fill(skiblade);
-
+    if (theGame) {
+      context.textAlign = "start";
+      context.font = "18px Helvetica";
+      context.fillText(
+        `Score: ${Math.floor((entireY - 1) / 4)} points.`,
+        10,
+        25
+      );
+    }
+    if (theGame) {
+      // Draw Skier
+      context.strokeStyle = "#868999";
+      const skiblade = new Path2D();
+      skiblade.moveTo(skiBladesX - 4 - directionOfSkier * 2, canhei / 4);
+      skiblade.lineTo(skiBladesX - 1 - directionOfSkier * 2, canhei / 4);
+      skiblade.lineTo(skiBladesX - 1 + directionOfSkier * 2, canhei / 4 + 16);
+      skiblade.lineTo(skiBladesX - 4 + directionOfSkier * 2, canhei / 4 + 16);
+      skiblade.closePath();
+      skiblade.moveTo(skiBladesX + 4 - directionOfSkier * 2, canhei / 4);
+      skiblade.lineTo(skiBladesX + 1 - directionOfSkier * 2, canhei / 4);
+      skiblade.lineTo(skiBladesX + 1 + directionOfSkier * 2, canhei / 4 + 16);
+      skiblade.lineTo(skiBladesX + 4 + directionOfSkier * 2, canhei / 4 + 16);
+      skiblade.closePath();
+      context.fill(skiblade);
+    }
     // Update obstacle postions
     obstaclesOfSlope = obstaclesOfSlope.map(function (obstacle) {
       return {

@@ -84,7 +84,7 @@ function init() {
 
   // Create a new obstacle
   function createObstacle() {
-    const obstacleTypes = ["tree", "snowbump", "hotshot", "kanelbulle"];
+    const obstacleTypes = ["tree", "snowbump"];
     const typeIndex = Math.floor(Math.random() * obstacleTypes.length);
     const type = obstacleTypes[typeIndex];
 

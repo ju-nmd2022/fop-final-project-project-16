@@ -6,5 +6,11 @@ body {
 }
 
 canvas {
-  background-color: #ceb49d;
+  background-color: #f0dfcf;
 }
+/* audio {
+  position: absolute;
+  border: 1px solid black;
+  margin-bottom: 100px;
+  margin-left: -1350px;
+} */

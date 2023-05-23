@@ -32,7 +32,6 @@ function init() {
       ctx.lineWidth = 2;
       const snowbump = new Path2D();
       snowbump.moveTo(x, y);
-      // mound.quadraticCurveTo(x + w / 2, y - h, x + w, y);
       snowbump.bezierCurveTo(
         x + w / 2,
         y - h / 2,

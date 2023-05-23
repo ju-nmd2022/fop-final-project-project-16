@@ -247,7 +247,11 @@ function init() {
 
         ctx.fillStyle = "#9B000F";
         ctx.font = "16px Helvetica";
-        ctx.fillText(`Ouch, you into a tree! Better luck next time!!`, 10, 60);
+        ctx.fillText(
+          `Ouch, you crashed into a tree! Better luck next time!!`,
+          10,
+          60
+        );
         ctx.fillStyle = "#111213";
         ctx.fillText(
           `You gained ${Math.floor((totalY - 1) / 4)} points.`,

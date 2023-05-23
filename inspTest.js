@@ -16,15 +16,15 @@ function init() {
   // Draw an obstacle
   function drawObstacle(ctx, type, x, y, h, w) {
     if (type === "tree") {
-      ctx.fillStyle = "#FF69B4";
       const tree = new Path2D();
+      ctx.beginPath();
+      ctx.fillStyle = "#361c09";
       tree.moveTo(x + w / 2, y);
       tree.lineTo(x, y + h * 0.9);
       tree.lineTo(x + w * 0.33, y + h * 0.85);
-      tree.lineTo(x + w * 0.33, y + h);
-      tree.lineTo(x + w * 0.66, y + h);
       tree.lineTo(x + w * 0.66, y + h * 0.85);
       tree.lineTo(x + w, y + h * 0.9);
+      ctx.fillRect(x + w / 2.3, y + h * 0.8, 2, 10, 30);
       tree.closePath();
       ctx.fill(tree);
     } else if (type === "mound") {
@@ -35,11 +35,20 @@ function init() {
       mound.quadraticCurveTo(x + w / 2, y - h, x + w, y);
       ctx.stroke(mound);
     } else if (type === "hotshot") {
-      ctx.strokeStyle = "#000000";
-      ctx.lineWidth = 5;
       const hotshot = new Path2D();
-      hotshot.moveTo(x, y);
-      hotshot.quadraticCurveTo(x + w / 2, y - h, x + w, y);
+      ctx.beginPath();
+      ctx.fillStyle = "#f6ce69";
+      ctx.fillRect(x, y, 15, 30);
+      ctx.stroke(hotshot);
+
+      ctx.beginPath();
+      ctx.fillStyle = "#000000";
+      ctx.fillRect(x, y, 15, 20);
+      ctx.stroke(hotshot);
+
+      ctx.beginPath();
+      ctx.fillStyle = "#FFFFFF";
+      ctx.fillRect(x, y, 15, 10);
       ctx.stroke(hotshot);
     } else if (type === "kanelbulle") {
       ctx.lineWidth = 5;
@@ -47,7 +56,7 @@ function init() {
       const radius = 15;
       ctx.beginPath();
 
-      ctx.arc(x, y, radius, 0, 2 * Math.PI);
+      ctx.arc(x, y, radius - 3, 0, 2 * Math.PI);
       ctx.strokeStyle = "#FFA600";
       ctx.stroke();
 

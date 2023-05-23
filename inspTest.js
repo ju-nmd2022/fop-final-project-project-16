@@ -42,12 +42,26 @@ function init() {
       hotshot.quadraticCurveTo(x + w / 2, y - h, x + w, y);
       ctx.stroke(hotshot);
     } else if (type === "kanelbulle") {
-      ctx.strokeStyle = "#0DD43E";
       ctx.lineWidth = 5;
       const kanelbulle = new Path2D();
-      kanelbulle.moveTo(x, y);
-      kanelbulle.quadraticCurveTo(x + w / 2, y - h, x + w, y);
-      ctx.stroke(kanelbulle);
+      const radius = 15;
+      ctx.beginPath();
+
+      ctx.arc(x, y, radius, 0, 2 * Math.PI);
+      ctx.strokeStyle = "#FFA600";
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.arc(x, y, radius - 5, 0, 2 * Math.PI);
+      ctx.strokeStyle = "#F1AD42";
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.arc(x, y, radius - 10, 0, 2 * Math.PI);
+      ctx.strokeStyle = "#FFCA87";
+      ctx.stroke();
+
+      ctx.closePath();
     }
   }
 
@@ -145,8 +159,9 @@ function init() {
     ctx.fillText(`Score: ${Math.floor((totalY - 1) / 4)} points.`, 10, 25);
 
     // Draw Skier
-    ctx.fillStyle = "#624D6E";
+    ctx.strokeStyle = "#868999";
     const skier = new Path2D();
+    const radius = 50;
     skier.moveTo(skierX - 4 - direction * 2, ch / 4);
     skier.lineTo(skierX - 1 - direction * 2, ch / 4);
     skier.lineTo(skierX - 1 + direction * 2, ch / 4 + 16);
@@ -240,9 +255,9 @@ function init() {
     const keycode = e.keyCode;
 
     if (keys) {
-      if (key === "ArrowLeft" && direction > -20) {
+      if (key === "ArrowLeft" && direction > -3) {
         direction--;
-      } else if (key === "ArrowRight" && direction < 20) {
+      } else if (key === "ArrowRight" && direction < 3) {
         direction++;
       }
 

@@ -150,6 +150,18 @@ function init() {
         cw / 2,
         124
       );
+      ctx.fillText(
+        "To gain some speed down the way, collect the hotshots! But be careful, if you hit a kanelbulle it will slow you down...",
+        cw / 2,
+        160
+      );
+
+      ctx.fillText(
+        "And a tree will unfortunately be the end of your skiing journey",
+        cw / 2,
+        180
+      );
+
       ctx.fillStyle = "#E8E9EE";
     }
 

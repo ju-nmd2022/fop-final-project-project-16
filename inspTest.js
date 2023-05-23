@@ -190,7 +190,6 @@ function init() {
     // Draw Skier
     ctx.strokeStyle = "#868999";
     const skier = new Path2D();
-    const radius = 50;
     skier.moveTo(skierX - 4 - direction * 2, ch / 4);
     skier.lineTo(skierX - 1 - direction * 2, ch / 4);
     skier.lineTo(skierX - 1 + direction * 2, ch / 4 + 16);

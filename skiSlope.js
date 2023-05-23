@@ -51,6 +51,39 @@ function init() {
       context.fillStyle = "#E8E9EE";
     }
 
+    // Draw Skier
+    ctx.strokeStyle = "#868999";
+    const skiblade = new Path2D();
+    skiblade.moveTo(skiBladesX - 4 - directionOfSkier * 2, canhei / 4);
+    skiblade.lineTo(skiBladesX - 1 - directionOfSkier* 2, canhei / 4);
+    skiblade.lineTo(skiBladesX - 1 + directionOfSkier * 2, canhei / 4 + 16);
+    skiblade.lineTo(skiBladesX - 4 + directionOfSkier * 2, canhei / 4 + 16);
+    skiblade.closePath();
+    skiblade.moveTo(skiBladesX + 4 - directionOfSkier * 2, canhei / 4);
+    skiblade.lineTo(skiBladesX + 1 - directionOfSkier * 2, canhei / 4);
+    skiblade.lineTo(skiBladesX + 1 + directionOfSkier * 2, canhei / 4 + 16);
+    skiblade.lineTo(skiBladesX+ 4 + directionOfSkier * 2, canhei / 4 + 16);
+    skiblade.closePath();
+    ctx.fill(skiblade);
+
+    // Update obstacle postions
+    obstacles = obstacles.map(function (obstacle) {
+      return {
+        type: obstacle.type,
+        x: obstacle.x,
+        y: obstacle.y - speedOfSkier,
+        height: obstacle.height,
+        width: obstacle.width,
+      };
+    });
+    if (skiBladesX < 0) {
+      skiBladesX += Math.abs(directionOfSkier / 2);
+    } else if (skiBladesX > canwid) {
+      skiBladesX -= Math.abs(directionOfSkier / 2);
+    } else {
+      skiBladesX += directionOfSkier / 2;
+    }
+
     // when creating obstacles through function obstacle functions, this is the
     //code for each specific obstacle to draw.
     function drawTheObstacles(context, type, x, y, h, w) {
@@ -161,8 +194,8 @@ function init() {
       const hotshotWidth = 30;
       obstacles.push({
         type: "hotshot",
-        x: Math.round(cw * Math.random()),
-        y: ch,
+        x: Math.round(canwid * Math.random()),
+        y: canhei,
         height: hotshotWidth / 2,
         width: hotshotWidth,
       });
@@ -170,8 +203,39 @@ function init() {
       const kanelbulleWidth = 30;
       obstacles.push({
         type: "kanelbulle",
-        x: Math.round(cw * Math.random()),
-        y: ch,
+        x: Math.round(canwid * Math.random()),
+        y: function createKanelHotshotObstacle() {
+          const obstacleTypes = ["hotshot", "kanelbulle"];
+          const typeIndex = Math.floor(Math.random() * obstacleTypes.length);
+          const type = obstacleTypes[typeIndex];
+
+          if (type === "hotshot") {
+            const hotshotWidth = 30;
+            obstacles.push({
+              type: "hotshot",
+              x: Math.round(canwid * Math.random()),
+              y: canhei,
+              height: hotshotWidth / 2,
+              width: hotshotWidth,
+            });
+          } else if (type === "kanelbulle") {
+            const kanelbulleWidth = 30;
+            obstacles.push({
+              type: "kanelbulle",
+              x: Math.round(canwid * Math.random()),
+              y: canhei,
+              height: kanelbulleWidth / 2,
+              width: kanelbulleWidth,
+            });
+          }
+
+          if (
+            obstacles.length > 0 &&
+            obstacles[0].y < 0 - obstacles[0].height
+          ) {
+            obstacles.shift();
+          }
+        },
         height: kanelbulleWidth / 2,
         width: kanelbulleWidth,
       });
@@ -181,7 +245,13 @@ function init() {
       obstacles.shift();
     }
   }
+  // Score
+  context.textAlign = "start";
+  context.font = "18px Helvetica";
+  context.fillText(`Score: ${Math.floor((entireY - 1) / 4)} points.`, 10, 25);
 
+
+  '
   // When pressing down any key, it starts handleKey function.
   //if you press left or right, it's starts in a specifc direction.
   //otherwise it keeps going and starts the game through boolean true + starGame

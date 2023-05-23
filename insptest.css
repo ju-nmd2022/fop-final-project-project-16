@@ -9,8 +9,8 @@ canvas {
   background-color: #f0dfcf;
 }
 audio {
-  display: block;
-  margin: 0 auto;
+  position: absolute;
   border: 1px solid black;
-  margin-top: 20px;
+  margin-top: 615px;
+  margin-left: -1350px;
 }

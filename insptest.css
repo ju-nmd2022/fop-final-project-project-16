@@ -8,3 +8,8 @@ body {
 canvas {
   background-color: #e8e9ee;
 }
+audio {
+  margin: 0 auto;
+  border: 1px solid black;
+  margin-top: 20px;
+}

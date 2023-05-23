@@ -5,12 +5,13 @@ function init() {
   const canhei = (canvas.height = window.innerHeight);
   const context = canvas.getContext("2d");
 
-  let speedOfSkier = 2;
+  let speedOfSkier = 1.5;
   let directionOfSkier = 0;
   let obstaclesOfSlope = [];
   let theGame = false;
   let keys = true;
   let entireY = 0;
+  let skiBladesX = cw / 2;
 
   //Draw the whole canvas, and start with Ski for your life!
   function draw() {
@@ -19,48 +20,106 @@ function init() {
 
     context.fillStyle = "#9B000F";
 
-    if (entireY < 10) {
+    if (entireY < 25) {
       context.textAlign = "center";
-      context.fillStyle = "#111213";
-      context.font = "40px Helvetica";
-      context.fillText(`SkiFree!`, cw / 2, 60);
+      context.font = "50px Helvetica";
+      context.fillText(`Ready to ski for your Life?`, cw / 2, 60);
       context.font = "20px Helvetica";
-      context.fillText(`Press an arrow key to start`, cw / 2, 100);
+      context.fillText(
+        `Press any key to start skiing down the slope!`,
+        cw / 2,
+        100
+      );
       context.font = "16px Helvetica";
-      context.fillText(`Use ← and → to steer`, cw / 2, 124);
+      context.fillText(
+        `Use the left or right arrowkey to control the skier`,
+        cw / 2,
+        124
+      );
+      context.fillText(
+        "To gain some speed down the way, collect the hotshots! But be careful, if you hit a kanelbulle it will slow you down...",
+        cw / 2,
+        160
+      );
+
+      context.fillText(
+        "And a tree will unfortunately be the end of your skiing journey",
+        cw / 2,
+        180
+      );
+
       context.fillStyle = "#E8E9EE";
     }
-    draw();
-  }
 
     // Draw Trees, snowpiles, kanelbulle and Hotshots
     function drawTheObstacles(context, type, x, y, h, w) {
-      if (type === "trees") {
-        context.fillStyle = "#624D6E";
-        const trees = new Path2D();
-        trees.moveTo(x + w / 2, y);
-        trees.lineTo(x, y + h * 0.9);
-        trees.lineTo(x + w * 0.33, y + h * 0.85);
-        trees.lineTo(x + w * 0.33, y + h);
-        trees.lineTo(x + w * 0.66, y + h);
-        trees.lineTo(x + w * 0.66, y + h * 0.85);
-        trees.lineTo(x + w, y + h * 0.9);
-        trees.closePath();
-        context.fill(trees);
-      } else if (type === "snowpiles") {
-        context.strokeStyle = "#868999";
-        context.lineWidth = 1;
-        const snowpiles = new Path2D();
-        snowpiles.moveTo(x, y);
-        snowpiles.quadraticCurveTo(x + w / 2, y - h, x + w, y);
-        context.stroke(snowpiles);
-      } else if (type === "kanebullar") {
+      if (type === "tree") {
+        const tree = new Path2D();
+        ctx.beginPath();
+        ctx.fillStyle = "#361c09";
+        tree.moveTo(x + w / 2, y);
+        tree.lineTo(x, y + h * 0.9);
+        tree.lineTo(x + w * 0.33, y + h * 0.85);
+        tree.lineTo(x + w * 0.66, y + h * 0.85);
+        tree.lineTo(x + w, y + h * 0.9);
+        ctx.fillRect(x + w / 2.3, y + h * 0.8, 2, 10, 30);
+        tree.closePath();
+        ctx.fill(tree);
+      } else if (type === "snowbump") {
+        ctx.strokeStyle = "#868999";
+        ctx.lineWidth = 2;
+        const snowbump = new Path2D();
+        snowbump.moveTo(x, y);
+        // mound.quadraticCurveTo(x + w / 2, y - h, x + w, y);
+        snowbump.bezierCurveTo(
+          x + w / 2,
+          y - h / 2,
+          x + w / 2,
+          y + h / 2,
+          x + w / 2,
+          y + h / 2
+        );
+        ctx.stroke(snowbump);
+      } else if (type === "hotshot") {
+        const hotshot = new Path2D();
+        ctx.beginPath();
+        ctx.fillStyle = "#f6ce69";
+        ctx.fillRect(x, y, 15, 30);
+        ctx.stroke(hotshot);
 
-        const kanelbullar = new Path2D();
-        kanelbullar.ellipseTo(x + y + w + h);
-      }
+        ctx.beginPath();
+        ctx.fillStyle = "#000000";
+        ctx.fillRect(x, y, 15, 20);
+        ctx.stroke(hotshot);
+
+        ctx.beginPath();
+        ctx.fillStyle = "#FFFFFF";
+        ctx.fillRect(x, y, 15, 10);
+        ctx.stroke(hotshot);
+      } else if (type === "kanelbulle") {
+        ctx.lineWidth = 5;
+        const kanelbulle = new Path2D();
+        const radius = 15;
+        ctx.beginPath();
+
+        ctx.arc(x, y, radius - 3, 0, 2 * Math.PI);
+        ctx.strokeStyle = "#FFA600";
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(x, y, radius - 5, 0, 2 * Math.PI);
+        ctx.strokeStyle = "#F1AD42";
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(x, y, radius - 10, 0, 2 * Math.PI);
+        ctx.strokeStyle = "#FFCA87";
+        ctx.stroke();
+
+        ctx.closePath();
       }
     }
+  }
 
   // When pressing down any key, it starts handleKey function.
   //if you press left or right, it's starts in a specifc direction.
@@ -87,4 +146,4 @@ function init() {
   }
 
   document.addEventListener("keydown", handleKey);
-} 
+}

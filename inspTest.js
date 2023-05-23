@@ -89,7 +89,7 @@ function init() {
     const type = obstacleTypes[typeIndex];
 
     if (type === "tree") {
-      const treeHeight = Math.floor(Math.random() * (40 - 20 + 1)) + 20;
+      const treeHeight = Math.floor(Math.random() * (60 - 20 + 1)) + 20;
       obstacles.push({
         type: "tree",
         x: Math.round(cw * Math.random()),

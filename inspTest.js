@@ -6,7 +6,7 @@ function init() {
   const ch = (canvas.height = window.innerHeight);
 
   let direction = 0;
-  let speed = 2;
+  let speed = 1.5;
   let skierX = cw / 2;
   let obstacles = [];
   let game = false;
@@ -27,13 +27,21 @@ function init() {
       ctx.fillRect(x + w / 2.3, y + h * 0.8, 2, 10, 30);
       tree.closePath();
       ctx.fill(tree);
-    } else if (type === "mound") {
+    } else if (type === "snowbump") {
       ctx.strokeStyle = "#868999";
       ctx.lineWidth = 2;
-      const mound = new Path2D();
-      mound.moveTo(x, y);
-      mound.quadraticCurveTo(x + w / 2, y - h, x + w, y);
-      ctx.stroke(mound);
+      const snowbump = new Path2D();
+      snowbump.moveTo(x, y);
+      // mound.quadraticCurveTo(x + w / 2, y - h, x + w, y);
+      snowbump.bezierCurveTo(
+        x + w / 2,
+        y - h / 2,
+        x + w / 2,
+        y + h / 2,
+        x + w / 2,
+        y + h / 2
+      );
+      ctx.stroke(snowbump);
     } else if (type === "hotshot") {
       const hotshot = new Path2D();
       ctx.beginPath();
@@ -76,7 +84,7 @@ function init() {
 
   // Create a new obstacle
   function createObstacle() {
-    const obstacleTypes = ["tree", "mound", "hotshot", "kanelbulle"];
+    const obstacleTypes = ["tree", "snowbump", "hotshot", "kanelbulle"];
     const typeIndex = Math.floor(Math.random() * obstacleTypes.length);
     const type = obstacleTypes[typeIndex];
 
@@ -89,14 +97,14 @@ function init() {
         height: treeHeight,
         width: treeHeight / 2,
       });
-    } else if (type === "mound") {
-      const moundWidth = Math.floor(Math.random() * (20 - 10 + 1)) + 10;
+    } else if (type === "snowbump") {
+      const snowbumpWidth = Math.floor(Math.random() * (20 - 10 + 1)) + 10;
       obstacles.push({
-        type: "mound",
+        type: "snowbump",
         x: Math.round(cw * Math.random()),
         y: ch,
-        height: moundWidth / 2,
-        width: moundWidth,
+        height: snowbumpWidth / 2,
+        width: snowbumpWidth,
       });
     }
 
@@ -284,7 +292,7 @@ function init() {
   function startGame() {
     if (!game) {
       console.log("game on!");
-      obstacleInterval = setInterval(createObstacle, 20);
+      obstacleInterval = setInterval(createObstacle, 15);
       obstacleInterval = setInterval(createKanelHotshotObstacle, 200);
       gameInterval = setInterval(draw, 1);
     }

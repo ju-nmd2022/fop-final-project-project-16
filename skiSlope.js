@@ -4,6 +4,7 @@ function init() {
   const canwid = (canvas.width = window.innerWidth);
   const canhei = (canvas.height = window.innerHeight);
   const context = canvas.getContext("2d");
+  let audio = new Audio("fylla.mp3");
 
   let speedOfSkier = 1.5;
   let directionOfSkier = 0;
@@ -245,7 +246,7 @@ function init() {
       ) {
         stopGame();
         theGame = false;
-
+        audio.pause();
         context.fillStyle = "#9B000F";
         context.font = "16px Helvetica";
         context.fillText(
@@ -300,7 +301,7 @@ function init() {
         directionOfSkier++;
       }
 
-      if (key === "ArrowLeft" || "ArrowRight" || "ArrowUp" || "ArrowDown") {
+      if (key === "ArrowLeft" || "ArrowRight" || "ArrowDown") {
         startGame();
         theGame = true;
       }
@@ -313,9 +314,10 @@ function init() {
 
   function startGame() {
     if (!theGame) {
-      obstacleInterval = setInterval(createTreesSnowbumpsObstacles, 15);
+      obstacleInterval = setInterval(createTreesSnowbumpsObstacles, 30);
       obstacleInterval = setInterval(createKanelHotshotObstacle, 200);
       gameInterval = setInterval(draw, 1);
+      audio.play();
     }
   }
   //Lower speed when hit kanelbulle

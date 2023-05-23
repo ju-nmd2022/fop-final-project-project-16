@@ -184,7 +184,7 @@ function init() {
 
     // Score
     ctx.textAlign = "start";
-    ctx.font = "14px Helvetica";
+    ctx.font = "18px Helvetica";
     ctx.fillText(`Score: ${Math.floor((totalY - 1) / 4)} points.`, 10, 25);
 
     // Draw Skier

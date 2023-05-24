@@ -156,30 +156,30 @@ function init() {
 
     if (entireY < 25) {
       context.textAlign = "center";
+      context.font = "100px Helvetica";
+      context.fillText(`Ready to ski for your Life?`, canwid / 2, 100);
       context.font = "50px Helvetica";
-      context.fillText(`Ready to ski for your Life?`, canwid / 2, 60);
-      context.font = "20px Helvetica";
       context.fillText(
         `Press any key to start skiing down the slope!`,
         canwid / 2,
-        100
+        170
       );
-      context.font = "16px Helvetica";
+      context.font = "36px Helvetica";
       context.fillText(
         `Use the left or right arrowkey to control the skier`,
         canwid / 2,
-        124
+        240
       );
       context.fillText(
         "To gain some speed down the way, collect the hotshots! But be careful, if you hit a kanelbulle it will slow you down...",
         canwid / 2,
-        160
+        280
       );
 
       context.fillText(
         "And a tree will unfortunately be the end of your skiing journey",
         canwid / 2,
-        180
+        320
       );
 
       context.fillStyle = "#E8E9EE";
@@ -187,8 +187,8 @@ function init() {
 
     // Score
     context.textAlign = "start";
-    context.font = "18px Helvetica";
-    context.fillText(`Score: ${Math.floor((entireY - 1) / 4)} points.`, 10, 25);
+    context.font = "28px Helvetica";
+    context.fillText(`Score: ${Math.floor((entireY - 1) / 4)} points.`, 10, 35);
 
     // Draw Skier
     context.strokeStyle = "#868999";

@@ -82,6 +82,7 @@ function init() {
     }
   }
 
+  //obstacles
   function createTreesSnowbumpsObstacles() {
     const obstacleTypes = ["tree", "snowbump"];
     const typeIndex = Math.floor(Math.random() * obstacleTypes.length);
@@ -115,6 +116,7 @@ function init() {
     }
   }
 
+  //kanelbulle & hotshot creation
   function createKanelHotshotObstacle() {
     const obstacleTypes = ["hotshot", "kanelbulle"];
     const typeIndex = Math.floor(Math.random() * obstacleTypes.length);
@@ -148,7 +150,7 @@ function init() {
     }
   }
 
-  //Draw the whole canvas, and start with Ski for your life!
+  //instruction screen
   function draw() {
     context.clearRect(0, 0, canwid, canhei);
     entireY++;
@@ -225,7 +227,6 @@ function init() {
       skiBladesX += directionOfSkier / 2;
     }
 
-    // Draw Obstacles
     obstaclesOfSlope.forEach(function (obstacle) {
       drawTheObstacles(
         context,
@@ -236,7 +237,6 @@ function init() {
         obstacle.width
       );
 
-      // Detect Crash
       if (
         obstacle.y + obstacle.height > canhei / 4 - 16 &&
         obstacle.y < canhei / 4 &&
@@ -274,7 +274,7 @@ function init() {
         onHitSlow();
       }
 
-      //If hit hotshot, you go swooosh
+      //If hit hotshot, you go swoooooosh
       if (
         obstacle.y + obstacle.height > canhei / 4 - 16 &&
         obstacle.y < canhei / 4 &&
@@ -287,9 +287,6 @@ function init() {
     });
   }
 
-  // When pressing down any key, it starts handleKey function.
-  //if you press left or right, it's starts in a specifc direction.
-  //otherwise it keeps going and starts the game through boolean true + starGame
   function handleKey(e) {
     const key = e.key;
     const keycode = e.keyCode;
@@ -301,7 +298,7 @@ function init() {
         directionOfSkier++;
       }
 
-      if (key === "ArrowLeft" || "ArrowRight" || "ArrowDown") {
+      if (key === "ArrowLeft" || "ArrowRight") {
         startGame();
         theGame = true;
       }
@@ -320,6 +317,7 @@ function init() {
       audio.play();
     }
   }
+
   //Lower speed when hit kanelbulle
   function onHitSlow() {
     decreasedSpeed();

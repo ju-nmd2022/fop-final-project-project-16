@@ -260,7 +260,7 @@ function init() {
           10,
           120
         );
-        context.fillText(`Please press [SPACE] to restart!.`, 10, 160);
+        context.fillText(`Please press [SPACE] to restart!`, 10, 160);
       }
 
       //If hit kanelbulle, it goes slow

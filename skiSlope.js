@@ -65,17 +65,17 @@ function init() {
       context.beginPath();
 
       context.arc(x, y, radius - 3, 0, 2 * Math.PI);
-      context.strokeStyle = "#FFA600";
+      context.strokeStyle = "#C59566";
       context.stroke();
 
       context.beginPath();
       context.arc(x, y, radius - 5, 0, 2 * Math.PI);
-      context.strokeStyle = "#F1AD42";
+      context.strokeStyle = "#BC8f61";
       context.stroke();
 
       context.beginPath();
       context.arc(x, y, radius - 10, 0, 2 * Math.PI);
-      context.strokeStyle = "#FFCA87";
+      context.strokeStyle = "#A97A4B";
       context.stroke();
 
       context.closePath();
@@ -167,7 +167,7 @@ function init() {
       );
       context.font = "36px Helvetica";
       context.fillText(
-        `Use the left or right arrowkey to control the skier`,
+        `Use the left or right arrowkey to control the skiier`,
         canwid / 2,
         240
       );
@@ -188,8 +188,8 @@ function init() {
 
     // Score
     context.textAlign = "start";
-    context.font = "18px Helvetica";
-    context.fillText(`Score: ${Math.floor((entireY - 1) / 4)} points.`, 10, 25);
+    context.font = "35px Helvetica";
+    context.fillText(`Score: ${Math.floor((entireY - 1) / 4)} points.`, 10, 35);
 
     // Draw Skier
     context.strokeStyle = "#868999";
@@ -248,19 +248,19 @@ function init() {
         theGame = false;
         audio.pause();
         context.fillStyle = "#9B000F";
-        context.font = "16px Helvetica";
+        context.font = "36px Helvetica";
         context.fillText(
           `Ouch, you crashed into a tree! Better luck next time!!`,
           10,
-          60
+          80
         );
         context.fillStyle = "#111213";
         context.fillText(
           `You gained ${Math.floor((entireY - 1) / 4)} points.`,
           10,
-          80
+          120
         );
-        context.fillText(`Please press [SPACE] to restart!.`, 10, 100);
+        context.fillText(`Please press [SPACE] to restart!.`, 10, 160);
       }
 
       //If hit kanelbulle, it goes slow

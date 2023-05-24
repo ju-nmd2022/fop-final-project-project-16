@@ -4,8 +4,8 @@ function init() {
   const canwid = (canvas.width = window.innerWidth);
   const canhei = (canvas.height = window.innerHeight);
   const context = canvas.getContext("2d");
-  let audio = new Audio("fylla.mp3");
 
+  let audio = new Audio("fylla.mp3");
   let speedOfSkier = 1.5;
   let directionOfSkier = 0;
   let obstaclesOfSlope = [];
@@ -14,7 +14,7 @@ function init() {
   let entireY = 0;
   let skiBladesX = canwid / 2;
 
-  //draw an obstacles
+  //draw obstacles
   function drawTheObstacles(context, type, x, y, h, w) {
     if (type === "tree") {
       const tree = new Path2D();
@@ -61,7 +61,7 @@ function init() {
     } else if (type === "kanelbulle") {
       context.lineWidth = 5;
       const kanelbulle = new Path2D();
-      const radius = 15;
+      let radius = 15;
       context.beginPath();
 
       context.arc(x, y, radius - 3, 0, 2 * Math.PI);

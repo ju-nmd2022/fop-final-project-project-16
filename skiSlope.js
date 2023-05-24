@@ -157,15 +157,15 @@ function init() {
 
     if (entireY < 25) {
       context.textAlign = "center";
-      context.font = "100px Helvetica";
+      context.font = "90px Helvetica";
       context.fillText(`Ready to ski for your Life?`, canwid / 2, 100);
-      context.font = "50px Helvetica";
+      context.font = "40px Helvetica";
       context.fillText(
         `Press any key to start skiing down the slope!`,
         canwid / 2,
-        170
+        180
       );
-      context.font = "36px Helvetica";
+      context.font = "25px Helvetica";
       context.fillText(
         `Use the left or right arrowkey to control the skiier`,
         canwid / 2,

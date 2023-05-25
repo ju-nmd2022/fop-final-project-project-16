@@ -1,3 +1,11 @@
+// READ ME!
+// Hello there! Welcome to the "backbone" to this game!
+// This game is inspired by a game made by Jason Bernert, called "SkiFree!".
+// We have changed it almost completely, learned Canvas, Context and Path2D through this way.
+// Here is the link to the game he made: https://codepen.io/JasonBernert/pen/mWPmwd
+// Have a good day!
+
+//loads the game and set rules and framework of this game.
 window.onload = init;
 function init() {
   const canvas = document.getElementById("linktohtml");
@@ -13,6 +21,8 @@ function init() {
   let keys = true;
   let entireY = 0;
   let skiBladesX = canwid / 2;
+  let scoreStartScreen = false;
+  let bladesStartScreen = false;
 
   //draw obstacles
   function drawTheObstacles(context, type, x, y, h, w) {
@@ -77,12 +87,11 @@ function init() {
       context.arc(x, y, radius - 10, 0, 2 * Math.PI);
       context.strokeStyle = "#A97A4B";
       context.stroke();
-
       context.closePath();
     }
   }
 
-  //obstacles
+  //tree/snowbump generated in diffrence sizes, then go through Arrays.
   function createTreesSnowbumpsObstacles() {
     const obstacleTypes = ["tree", "snowbump"];
     const typeIndex = Math.floor(Math.random() * obstacleTypes.length);
@@ -107,7 +116,7 @@ function init() {
         width: snowbumpWidth,
       });
     }
-
+    //Remove obstacles that have moved off the visible area
     if (
       obstaclesOfSlope.length > 0 &&
       obstaclesOfSlope[0].y < 0 - obstaclesOfSlope[0].height
@@ -116,7 +125,7 @@ function init() {
     }
   }
 
-  //kanelbulle & hotshot creation
+  //hotshot/kanelbulle generated, then go through Arrays.
   function createKanelHotshotObstacle() {
     const obstacleTypes = ["hotshot", "kanelbulle"];
     const typeIndex = Math.floor(Math.random() * obstacleTypes.length);
@@ -141,7 +150,7 @@ function init() {
         width: kanelbulleWidth,
       });
     }
-
+    //Remove obstacles that have moved off the visible area
     if (
       obstaclesOfSlope.length > 0 &&
       obstaclesOfSlope[0].y < 0 - obstaclesOfSlope[0].height
@@ -150,7 +159,7 @@ function init() {
     }
   }
 
-  //instruction screen
+  //draws instruction screen
   function draw() {
     context.clearRect(0, 0, canwid, canhei);
     entireY++;
@@ -159,55 +168,66 @@ function init() {
 
     if (entireY < 25) {
       context.textAlign = "center";
-      context.font = "90px Helvetica";
-      context.fillText(`Ready to ski for your Life?`, canwid / 2, 100);
-      context.font = "40px Helvetica";
+      context.font = "90px Modak";
+      context.fillText(`Ready to Ski for your Life?`, canwid / 2, 100);
+      context.font = "40px Modak";
       context.fillText(
         `Press any key to start skiing down the slope!`,
         canwid / 2,
         180
       );
-      context.font = "25px Helvetica";
+      context.font = "25px Modak";
       context.fillText(
         `Use the left or right arrowkey to control the skiier`,
         canwid / 2,
         240
       );
       context.fillText(
-        "To gain some speed down the way, collect the hotshots! But be careful, if you hit a kanelbulle it will slow you down...",
+        "If you want a temporary slow, then collect kanelbulle!",
         canwid / 2,
         280
       );
-
       context.fillText(
-        "And a tree will unfortunately be the end of your skiing journey",
+        "Be careful, if you hit a hotshot, you will have a temporary boost...",
         canwid / 2,
         320
+      );
+
+      context.fillText(
+        "Trees will unfortunately be the end of your skiing journey!",
+        canwid / 2,
+        360
       );
 
       context.fillStyle = "#E8E9EE";
     }
 
     // Score
-    context.textAlign = "start";
-    context.font = "35px Helvetica";
-    context.fillText(`Score: ${Math.floor((entireY - 1) / 4)} points.`, 10, 35);
-
-    // Draw Skier
-    context.strokeStyle = "#868999";
-    const skiblade = new Path2D();
-    skiblade.moveTo(skiBladesX - 4 - directionOfSkier * 2, canhei / 4);
-    skiblade.lineTo(skiBladesX - 1 - directionOfSkier * 2, canhei / 4);
-    skiblade.lineTo(skiBladesX - 1 + directionOfSkier * 2, canhei / 4 + 16);
-    skiblade.lineTo(skiBladesX - 4 + directionOfSkier * 2, canhei / 4 + 16);
-    skiblade.closePath();
-    skiblade.moveTo(skiBladesX + 4 - directionOfSkier * 2, canhei / 4);
-    skiblade.lineTo(skiBladesX + 1 - directionOfSkier * 2, canhei / 4);
-    skiblade.lineTo(skiBladesX + 1 + directionOfSkier * 2, canhei / 4 + 16);
-    skiblade.lineTo(skiBladesX + 4 + directionOfSkier * 2, canhei / 4 + 16);
-    skiblade.closePath();
-    context.fill(skiblade);
-
+    if (scoreStartScreen) {
+      context.textAlign = "start";
+      context.font = "35px Modak";
+      context.fillText(
+        `Score: ${Math.floor((entireY - 1) / 4)} points.`,
+        10,
+        35
+      );
+    }
+    // Draw Ski blades
+    if (bladesStartScreen) {
+      context.strokeStyle = "#868999";
+      const skiblade = new Path2D();
+      skiblade.moveTo(skiBladesX - 4 - directionOfSkier * 2, canhei / 4);
+      skiblade.lineTo(skiBladesX - 1 - directionOfSkier * 2, canhei / 4);
+      skiblade.lineTo(skiBladesX - 1 + directionOfSkier * 2, canhei / 4 + 16);
+      skiblade.lineTo(skiBladesX - 4 + directionOfSkier * 2, canhei / 4 + 16);
+      skiblade.closePath();
+      skiblade.moveTo(skiBladesX + 4 - directionOfSkier * 2, canhei / 4);
+      skiblade.lineTo(skiBladesX + 1 - directionOfSkier * 2, canhei / 4);
+      skiblade.lineTo(skiBladesX + 1 + directionOfSkier * 2, canhei / 4 + 16);
+      skiblade.lineTo(skiBladesX + 4 + directionOfSkier * 2, canhei / 4 + 16);
+      skiblade.closePath();
+      context.fill(skiblade);
+    }
     // Update obstacle postions
     obstaclesOfSlope = obstaclesOfSlope.map(function (obstacle) {
       return {
@@ -218,7 +238,7 @@ function init() {
         width: obstacle.width,
       };
     });
-
+    // Update position of ski blades
     if (skiBladesX < 0) {
       skiBladesX += Math.abs(directionOfSkier / 2);
     } else if (skiBladesX > canwid) {
@@ -236,7 +256,7 @@ function init() {
         obstacle.height,
         obstacle.width
       );
-
+      // if ski blades hits tree, stops game + music
       if (
         obstacle.y + obstacle.height > canhei / 4 - 16 &&
         obstacle.y < canhei / 4 &&
@@ -247,8 +267,8 @@ function init() {
         stopGame();
         theGame = false;
         audio.pause();
-        context.fillStyle = "#9B000F";
-        context.font = "36px Helvetica";
+        context.fillStyle = "#000000";
+        context.font = "36px Modak";
         context.fillText(
           `Ouch, you crashed into a tree! Better luck next time!!`,
           10,
@@ -260,7 +280,7 @@ function init() {
           10,
           120
         );
-        context.fillText(`Please press [SPACE] to restart!`, 10, 160);
+        context.fillText(`Press [ENTER] to restart!`, 10, 160);
       }
 
       //If hit kanelbulle, it goes slow
@@ -286,7 +306,7 @@ function init() {
       }
     });
   }
-
+  //If hit hotshot, you go swoooooosh
   function handleKey(e) {
     const key = e.key;
     const keycode = e.keyCode;
@@ -304,17 +324,19 @@ function init() {
       }
     }
 
-    if (keycode === 32 && theGame === false) {
+    if (keycode === 13 && theGame === false) {
       window.location.reload(true);
     }
   }
-
+  //Starts generating objces, plays music and removes blades/score from start meny
   function startGame() {
     if (!theGame) {
       obstacleInterval = setInterval(createTreesSnowbumpsObstacles, 30);
       obstacleInterval = setInterval(createKanelHotshotObstacle, 200);
       gameInterval = setInterval(draw, 1);
       audio.play();
+      scoreStartScreen = true;
+      bladesStartScreen = true;
     }
   }
 
@@ -346,7 +368,7 @@ function init() {
       keys = false;
     }
   }
-
+  //when you press any key, "handleKey" starts.
   document.addEventListener("keydown", handleKey);
 
   draw();

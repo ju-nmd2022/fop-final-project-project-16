@@ -160,15 +160,15 @@ function init() {
 
     if (entireY < 25) {
       context.textAlign = "center";
-      context.font = "90px Helvetica";
+      context.font = "90px Modak";
       context.fillText(`Ready to Ski for your Life?`, canwid / 2, 100);
-      context.font = "40px Helvetica";
+      context.font = "40px Modak";
       context.fillText(
         `Press any key to start skiing down the slope!`,
         canwid / 2,
         180
       );
-      context.font = "25px Helvetica";
+      context.font = "25px Modak";
       context.fillText(
         `Use the left or right arrowkey to control the skiier`,
         canwid / 2,
@@ -197,7 +197,7 @@ function init() {
     // Score
     if (scoreStartScreen) {
       context.textAlign = "start";
-      context.font = "35px Helvetica";
+      context.font = "35px Modak";
       context.fillText(
         `Score: ${Math.floor((entireY - 1) / 4)} points.`,
         10,
@@ -259,8 +259,8 @@ function init() {
         stopGame();
         theGame = false;
         audio.pause();
-        context.fillStyle = "#9B000F";
-        context.font = "36px Helvetica";
+        context.fillStyle = "#000000";
+        context.font = "36px Modak";
         context.fillText(
           `Ouch, you crashed into a tree! Better luck next time!!`,
           10,

@@ -13,6 +13,8 @@ function init() {
   let keys = true;
   let entireY = 0;
   let skiBladesX = canwid / 2;
+  let scoreStartScreen = false;
+  let bladesStartScreen = false;
 
   //draw obstacles
   function drawTheObstacles(context, type, x, y, h, w) {
@@ -77,7 +79,6 @@ function init() {
       context.arc(x, y, radius - 10, 0, 2 * Math.PI);
       context.strokeStyle = "#A97A4B";
       context.stroke();
-
       context.closePath();
     }
   }
@@ -160,7 +161,7 @@ function init() {
     if (entireY < 25) {
       context.textAlign = "center";
       context.font = "90px Helvetica";
-      context.fillText(`Ready to ski for your Life?`, canwid / 2, 100);
+      context.fillText(`Ready to Ski for your Life?`, canwid / 2, 100);
       context.font = "40px Helvetica";
       context.fillText(
         `Press any key to start skiing down the slope!`,
@@ -174,40 +175,51 @@ function init() {
         240
       );
       context.fillText(
-        "To gain some speed down the way, collect the hotshots! But be careful, if you hit a kanelbulle it will slow you down...",
+        "If you want a temporary slow, then collect kanelbulle!",
         canwid / 2,
         280
       );
-
       context.fillText(
-        "And a tree will unfortunately be the end of your skiing journey",
+        "Be careful, if you hit a hotshot, you will have a temporary boost...",
         canwid / 2,
         320
+      );
+
+      context.fillText(
+        "Trees will unfortunately be the end of your skiing journey!",
+        canwid / 2,
+        360
       );
 
       context.fillStyle = "#E8E9EE";
     }
 
     // Score
-    context.textAlign = "start";
-    context.font = "35px Helvetica";
-    context.fillText(`Score: ${Math.floor((entireY - 1) / 4)} points.`, 10, 35);
-
+    if (scoreStartScreen) {
+      context.textAlign = "start";
+      context.font = "35px Helvetica";
+      context.fillText(
+        `Score: ${Math.floor((entireY - 1) / 4)} points.`,
+        10,
+        35
+      );
+    }
     // Draw Skier
-    context.strokeStyle = "#868999";
-    const skiblade = new Path2D();
-    skiblade.moveTo(skiBladesX - 4 - directionOfSkier * 2, canhei / 4);
-    skiblade.lineTo(skiBladesX - 1 - directionOfSkier * 2, canhei / 4);
-    skiblade.lineTo(skiBladesX - 1 + directionOfSkier * 2, canhei / 4 + 16);
-    skiblade.lineTo(skiBladesX - 4 + directionOfSkier * 2, canhei / 4 + 16);
-    skiblade.closePath();
-    skiblade.moveTo(skiBladesX + 4 - directionOfSkier * 2, canhei / 4);
-    skiblade.lineTo(skiBladesX + 1 - directionOfSkier * 2, canhei / 4);
-    skiblade.lineTo(skiBladesX + 1 + directionOfSkier * 2, canhei / 4 + 16);
-    skiblade.lineTo(skiBladesX + 4 + directionOfSkier * 2, canhei / 4 + 16);
-    skiblade.closePath();
-    context.fill(skiblade);
-
+    if (bladesStartScreen) {
+      context.strokeStyle = "#868999";
+      const skiblade = new Path2D();
+      skiblade.moveTo(skiBladesX - 4 - directionOfSkier * 2, canhei / 4);
+      skiblade.lineTo(skiBladesX - 1 - directionOfSkier * 2, canhei / 4);
+      skiblade.lineTo(skiBladesX - 1 + directionOfSkier * 2, canhei / 4 + 16);
+      skiblade.lineTo(skiBladesX - 4 + directionOfSkier * 2, canhei / 4 + 16);
+      skiblade.closePath();
+      skiblade.moveTo(skiBladesX + 4 - directionOfSkier * 2, canhei / 4);
+      skiblade.lineTo(skiBladesX + 1 - directionOfSkier * 2, canhei / 4);
+      skiblade.lineTo(skiBladesX + 1 + directionOfSkier * 2, canhei / 4 + 16);
+      skiblade.lineTo(skiBladesX + 4 + directionOfSkier * 2, canhei / 4 + 16);
+      skiblade.closePath();
+      context.fill(skiblade);
+    }
     // Update obstacle postions
     obstaclesOfSlope = obstaclesOfSlope.map(function (obstacle) {
       return {
@@ -260,7 +272,7 @@ function init() {
           10,
           120
         );
-        context.fillText(`Please press [SPACE] to restart!`, 10, 160);
+        context.fillText(`Press [ENTER] to restart!`, 10, 160);
       }
 
       //If hit kanelbulle, it goes slow
@@ -304,7 +316,7 @@ function init() {
       }
     }
 
-    if (keycode === 32 && theGame === false) {
+    if (keycode === 13 && theGame === false) {
       window.location.reload(true);
     }
   }
@@ -315,6 +327,8 @@ function init() {
       obstacleInterval = setInterval(createKanelHotshotObstacle, 200);
       gameInterval = setInterval(draw, 1);
       audio.play();
+      scoreStartScreen = true;
+      bladesStartScreen = true;
     }
   }
 

@@ -254,7 +254,7 @@ function init() {
           10,
           80
         );
-        context.fillStyle = "#111213";
+        context.fillStyle = "#AEAEAE";
         context.fillText(
           `You gained ${Math.floor((entireY - 1) / 4)} points.`,
           10,

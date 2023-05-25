@@ -1,3 +1,11 @@
+// READ ME!
+// Hello there! Welcome to the "backbone" to this game!
+// This game is inspired by a game made by Jason Bernert, called "SkiFree!".
+// We have changed it almost completely, learned Canvas, Context and Path2D through this way.
+// Here is the link to the game he made: https://codepen.io/JasonBernert/pen/mWPmwd
+// Have a good day!
+
+//loads the game and set rules and framework of this game.
 window.onload = init;
 function init() {
   const canvas = document.getElementById("linktohtml");
@@ -83,7 +91,7 @@ function init() {
     }
   }
 
-  //obstacles
+  //tree/snowbump generated in diffrence sizes, then go through Arrays.
   function createTreesSnowbumpsObstacles() {
     const obstacleTypes = ["tree", "snowbump"];
     const typeIndex = Math.floor(Math.random() * obstacleTypes.length);
@@ -108,7 +116,7 @@ function init() {
         width: snowbumpWidth,
       });
     }
-
+    //Remove obstacles that have moved off the visible area
     if (
       obstaclesOfSlope.length > 0 &&
       obstaclesOfSlope[0].y < 0 - obstaclesOfSlope[0].height
@@ -117,7 +125,7 @@ function init() {
     }
   }
 
-  //kanelbulle & hotshot creation
+  //hotshot/kanelbulle generated, then go through Arrays.
   function createKanelHotshotObstacle() {
     const obstacleTypes = ["hotshot", "kanelbulle"];
     const typeIndex = Math.floor(Math.random() * obstacleTypes.length);
@@ -142,7 +150,7 @@ function init() {
         width: kanelbulleWidth,
       });
     }
-
+    //Remove obstacles that have moved off the visible area
     if (
       obstaclesOfSlope.length > 0 &&
       obstaclesOfSlope[0].y < 0 - obstaclesOfSlope[0].height
@@ -151,7 +159,7 @@ function init() {
     }
   }
 
-  //instruction screen
+  //draws instruction screen
   function draw() {
     context.clearRect(0, 0, canwid, canhei);
     entireY++;
@@ -204,7 +212,7 @@ function init() {
         35
       );
     }
-    // Draw Skier
+    // Draw Ski blades
     if (bladesStartScreen) {
       context.strokeStyle = "#868999";
       const skiblade = new Path2D();
@@ -230,7 +238,7 @@ function init() {
         width: obstacle.width,
       };
     });
-
+    // Update position of ski blades
     if (skiBladesX < 0) {
       skiBladesX += Math.abs(directionOfSkier / 2);
     } else if (skiBladesX > canwid) {
@@ -248,7 +256,7 @@ function init() {
         obstacle.height,
         obstacle.width
       );
-
+      // if ski blades hits tree, stops game + music
       if (
         obstacle.y + obstacle.height > canhei / 4 - 16 &&
         obstacle.y < canhei / 4 &&
@@ -298,7 +306,7 @@ function init() {
       }
     });
   }
-
+  //If hit hotshot, you go swoooooosh
   function handleKey(e) {
     const key = e.key;
     const keycode = e.keyCode;
@@ -320,7 +328,7 @@ function init() {
       window.location.reload(true);
     }
   }
-
+  //Starts generating objces, plays music and removes blades/score from start meny
   function startGame() {
     if (!theGame) {
       obstacleInterval = setInterval(createTreesSnowbumpsObstacles, 30);
@@ -360,7 +368,7 @@ function init() {
       keys = false;
     }
   }
-
+  //when you press any key, "handleKey" starts.
   document.addEventListener("keydown", handleKey);
 
   draw();

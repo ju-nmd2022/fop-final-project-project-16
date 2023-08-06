@@ -51,7 +51,6 @@ function init() {
         x + w / 2,
         y + h / 2
       );
-      context.stroke(snowbump);
     } else if (type === "hotshot") {
       const hotshot = new Path2D();
       context.beginPath();
@@ -88,6 +87,9 @@ function init() {
       context.strokeStyle = "#A97A4B";
       context.stroke();
       context.closePath();
+    } else if (type === "spiral") {
+      const size = 50;
+      context.fillText("🌀", x, y);
     }
   }
 

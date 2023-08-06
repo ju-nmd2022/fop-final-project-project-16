@@ -23,6 +23,7 @@ function init() {
   let skiBladesX = canwid / 2;
   let scoreStartScreen = false;
   let bladesStartScreen = false;
+  let dizzyMode = false;
 
   //draw obstacles
   function drawTheObstacles(context, type, x, y, h, w) {
@@ -51,6 +52,7 @@ function init() {
         x + w / 2,
         y + h / 2
       );
+      context.stroke(snowbump);
     } else if (type === "hotshot") {
       const hotshot = new Path2D();
       context.beginPath();
@@ -87,7 +89,7 @@ function init() {
       context.strokeStyle = "#A97A4B";
       context.stroke();
       context.closePath();
-    } else if (type === "spiral") {
+    } else if (type === "dizzy") {
       const size = 50;
       context.fillText("🌀", x, y);
     }
@@ -150,6 +152,30 @@ function init() {
         y: canhei,
         height: kanelbulleWidth / 2,
         width: kanelbulleWidth,
+      });
+    }
+    //Remove obstacles that have moved off the visible area
+    if (
+      obstaclesOfSlope.length > 0 &&
+      obstaclesOfSlope[0].y < 0 - obstaclesOfSlope[0].height
+    ) {
+      obstaclesOfSlope.shift();
+    }
+  }
+
+  function createDizzyObstacle() {
+    const obstacleTypes = ["dizzy"];
+    const typeIndex = Math.floor(Math.random() * obstacleTypes.length);
+    const type = obstacleTypes[typeIndex];
+
+    if (type === "dizzy") {
+      const dizzyWidth = 50;
+      obstaclesOfSlope.push({
+        type: "dizzy",
+        x: Math.round(canwid * Math.random()),
+        y: canhei,
+        height: dizzyWidth / 2,
+        width: dizzyWidth,
       });
     }
     //Remove obstacles that have moved off the visible area
@@ -306,18 +332,35 @@ function init() {
       ) {
         onHitSpeed();
       }
+
+      if (
+        obstacle.y + obstacle.height > canhei / 4 - 16 &&
+        obstacle.y < canhei / 4 &&
+        obstacle.x - obstacle.width / 2 < skiBladesX &&
+        obstacle.x + obstacle.width / 2 > skiBladesX &&
+        obstacle.type == "dizzy"
+      ) {
+        onHitDizzy();
+      }
     });
   }
-  //If hit hotshot, you go swoooooosh
   function handleKey(e) {
     const key = e.key;
     const keycode = e.keyCode;
 
     if (keys) {
-      if (key === "ArrowLeft" && directionOfSkier > -3) {
-        directionOfSkier--;
-      } else if (key === "ArrowRight" && directionOfSkier < 3) {
-        directionOfSkier++;
+      if (dizzyMode) {
+        if (key === "ArrowLeft" && directionOfSkier < 3) {
+          directionOfSkier++;
+        } else if (key === "ArrowRight" && directionOfSkier > -3) {
+          directionOfSkier--;
+        }
+      } else {
+        if (key === "ArrowLeft" && directionOfSkier > -3) {
+          directionOfSkier--;
+        } else if (key === "ArrowRight" && directionOfSkier < 3) {
+          directionOfSkier++;
+        }
       }
 
       if (key === "ArrowLeft" || "ArrowRight") {
@@ -333,8 +376,23 @@ function init() {
   //Starts generating objces, plays music and removes blades/score from start meny
   function startGame() {
     if (!theGame) {
-      obstacleInterval = setInterval(createTreesSnowbumpsObstacles, 30);
-      obstacleInterval = setInterval(createKanelHotshotObstacle, 200);
+      obstacleInterval = setInterval(createTreesSnowbumpsObstacles, 50);
+      obstacleInterval = setInterval(createKanelHotshotObstacle, 100);
+
+      //After 10 seconds, more trees appears
+      setTimeout(function () {
+        obstacleInterval = setInterval(createTreesSnowbumpsObstacles, 30);
+      }, 10000);
+
+      //After 20 seconds, more trees and dizzy appears
+      setTimeout(function () {
+        obstacleInterval = setInterval(createTreesSnowbumpsObstacles, 20);
+      }, 20000);
+
+      setTimeout(function () {
+        obstacleInterval = setInterval(createDizzyObstacle, 500);
+      }, 2000);
+
       gameInterval = setInterval(draw, 1);
       audio.play();
       scoreStartScreen = true;
@@ -363,6 +421,15 @@ function init() {
     }, 1000);
     speedOfSkier = 4;
   }
+
+  //Opposite usage of arrows when hit with Dizzy
+  function onHitDizzy() {
+    dizzyMode = true;
+    setTimeout(function () {
+      dizzyMode = false;
+    }, 500);
+  }
+
   function stopGame() {
     if (theGame) {
       clearInterval(obstacleInterval);

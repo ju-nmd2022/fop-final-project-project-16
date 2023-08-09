@@ -216,7 +216,7 @@ function init() {
         280
       );
       context.fillText(
-        "Be careful, if you hit a hotshot, you will have a temporary boost...",
+        "Be careful, if you hit a hotshot, you will have a temporary boost, and get really dizzy if you hit a spiral...",
         canwid / 2,
         320
       );
@@ -391,7 +391,7 @@ function init() {
 
       setTimeout(function () {
         obstacleInterval = setInterval(createDizzyObstacle, 500);
-      }, 2000);
+      }, 20000);
 
       gameInterval = setInterval(draw, 1);
       audio.play();
